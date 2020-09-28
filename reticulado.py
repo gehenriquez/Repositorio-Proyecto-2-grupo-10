@@ -8,17 +8,17 @@ class Reticulado(object):
 	def __init__(self):
 		super(Reticulado, self).__init__()
 		
-		self.xyz = np.zeros((0,3), dtype=np.double)
+		self.xyz = np.zeros((1,3), dtype=np.double)
 		self.Nodos = 0
 		self.barras = []
 		self.cargas = {}
 		self.restricciones = {}
 
-	def agregar_nodo(self, x, y, z=0):
-        
-        Nodos +=1
-		"""Implementar"""
-		return
+	def agregar_nodo(self, x, y,z=0):
+        self.xyz.resize ((self.Nodos+1,3))
+        self.xyz[Nodos,:]= [x,y,z]
+        self.Nodos+=1
+		return None
 		
 	def agregar_barra(self, barra):
 		"""Implementar"""
@@ -59,3 +59,10 @@ class Reticulado(object):
 	def recuperar_fuerzas(self):
 		"""Implementar"""
 		return
+    
+    def __str__(self):
+        q= "informacion reticulado \n \n"
+        q+=" los nodos son: \n"
+        q+= f"{self.xyz}"
+        return q
+        
