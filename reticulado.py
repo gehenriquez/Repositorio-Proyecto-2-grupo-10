@@ -1,6 +1,5 @@
-
 import numpy as np
-
+from barra import Barra
 
 class Reticulado(object):
 	"""Define un reticulado"""
@@ -15,22 +14,25 @@ class Reticulado(object):
 		self.restricciones = {}
 
 	def agregar_nodo(self, x, y,z=0):
+        if self.Nodos +1 > Reticulado.__
             self.xyz.resize((self.Nodos+1,3))
             self.xyz[Nodos,:]= [x,y,z]
             self.Nodos+=1
             return None
-		
-	def agregar_barra(self, barra):
 
-		return None
+    
+    def agregar_barra(self,barra):
+        self.barras.append(barra)
 
-	def obtener_coordenada_nodal(self, n): 
+	def obtener_coordenada_nodal(self, nodo): 
 
 		return None
 
 	def calcular_peso_total(self):
-
-		return None
+        W=0
+        for i in self.barras:
+            W+= i.calcular_peso(self)
+    	return W
 
 	def obtener_nodos(self):
 
@@ -63,6 +65,13 @@ class Reticulado(object):
     def __str__( self ):
         q= "informacion reticulado \n \n"
         q+=" los nodos son: \n"
-        q+= f"{self.xyz}"
+        for i in range(self.Nodos):
+            q += f" {i} :( self.xyz[i,0], self.xyz[i,1],self.xyz[i,2],)"
+        q+= "\n"
+        q+= " Las barras de conectan los nodos de la siguiente forma: \n"
+        q+=
+        
+        q+= "El peso total del enrejado es de: "+ str(calcular_peso_total())+" Kg"
+        
         return q
         
