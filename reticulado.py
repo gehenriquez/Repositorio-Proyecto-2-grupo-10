@@ -8,59 +8,59 @@ class Reticulado(object):
 	def __init__(self):
 		super(Reticulado, self).__init__()
 		
-		self.xyz = np.zeros((1,3), dtype=np.double)
-		self.Nodos = 0
+		self.xyz=np.zeros((0,3),dtype=np.double)
+		self.Nodos = 0.
 		self.barras = []
 		self.cargas = {}
 		self.restricciones = {}
 
 	def agregar_nodo(self, x, y,z=0):
-        self.xyz.resize ((self.Nodos+1,3))
-        self.xyz[Nodos,:]= [x,y,z]
-        self.Nodos+=1
-		return None
+            self.xyz.resize((self.Nodos+1,3))
+            self.xyz[Nodos,:]= [x,y,z]
+            self.Nodos+=1
+            return None
 		
 	def agregar_barra(self, barra):
-		"""Implementar"""
-		return
+
+		return None
 
 	def obtener_coordenada_nodal(self, n): 
-		"""Implementar"""
-		return 
+
+		return None
 
 	def calcular_peso_total(self):
-		"""Implementar"""
-		return 
+
+		return None
 
 	def obtener_nodos(self):
-		"""Implementar"""
-		return 
+
+		return None
 
 	def obtener_barras(self):
-		"""Implementar"""
-		return 
+
+		return None
 
 	def agregar_restriccion(self, nodo, gdl, valor=0.0):
-		"""Implementar"""
-		return
+
+		returnNone
 
 	def agregar_fuerza(self, nodo, gdl, valor):
-		"""Implementar"""
-		return
+
+		return None
 
 	def ensamblar_sistema(self):
-		"""Implementar"""
-		return
+
+		return None
 
 	def resolver_sistema(self):
-		"""Implementar"""
-		return
+
+		return None
 
 	def recuperar_fuerzas(self):
-		"""Implementar"""
-		return
+
+		return None
     
-    def __str__(self):
+    def __str__( self ):
         q= "informacion reticulado \n \n"
         q+=" los nodos son: \n"
         q+= f"{self.xyz}"
