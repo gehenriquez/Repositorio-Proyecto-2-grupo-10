@@ -2,19 +2,20 @@ import numpy as np
 from barra import Barra
 
 class Reticulado(object):
-	"""Define un reticulado"""
+    """Definicion de un reticulado"""
+    __NodosInit__=100
 
-	def __init__(self):
-		super(Reticulado, self).__init__()
-		
-		self.xyz=np.zeros((0,3),dtype=np.double)
-		self.Nodos = 0.
-		self.barras = []
-		self.cargas = {}
-		self.restricciones = {}
+    def __init__(self):
+        super(Reticulado, self).__init__()
 
-	def agregar_nodo(self, x, y,z=0):
-        if self.Nodos +1 > Reticulado.__
+        self.xyz=np.zeros((Reticulado.__NodosInit__,3),dtype=np.double)
+        self.Nodos = 0.
+        self.barras = []
+        self.cargas = {}
+        self.restricciones = {}
+
+    def agregar_nodo(self, x, y,z=0):
+        if self.Nodos +1 > Reticulado.__NodosInit__:
             self.xyz.resize((self.Nodos+1,3))
             self.xyz[Nodos,:]= [x,y,z]
             self.Nodos+=1
@@ -24,43 +25,43 @@ class Reticulado(object):
     def agregar_barra(self,barra):
         self.barras.append(barra)
 
-	def obtener_coordenada_nodal(self, nodo): 
+    def obtener_coordenada_nodal(self, nodo): 
+        if nodo >= self.Nodos:
+            return None
+        else:
+            return self.xyz[nodo,:]
 
-		return None
-
-	def calcular_peso_total(self):
+    def calcular_peso_total(self):
         W=0
         for i in self.barras:
             W+= i.calcular_peso(self)
-    	return W
+        return W
 
-	def obtener_nodos(self):
+    def obtener_nodos(self):
+        return self.xyz[0:self.Nodos,:].copy()
 
-		return None
+    def obtener_barras(self):
+        return self.barras
 
-	def obtener_barras(self):
+    def agregar_restriccion(self, nodo, gdl, valor=0.0):
 
-		return None
+        returnNone
 
-	def agregar_restriccion(self, nodo, gdl, valor=0.0):
+    def agregar_fuerza(self, nodo, gdl, valor):
 
-		returnNone
+        return None
 
-	def agregar_fuerza(self, nodo, gdl, valor):
+    def ensamblar_sistema(self):
 
-		return None
+        return None
 
-	def ensamblar_sistema(self):
+    def resolver_sistema(self):
 
-		return None
+        return None
 
-	def resolver_sistema(self):
+    def recuperar_fuerzas(self):
 
-		return None
-
-	def recuperar_fuerzas(self):
-
-		return None
+        return None
     
     def __str__( self ):
         q= "informacion reticulado \n \n"
@@ -69,7 +70,10 @@ class Reticulado(object):
             q += f" {i} :( self.xyz[i,0], self.xyz[i,1],self.xyz[i,2],)"
         q+= "\n"
         q+= " Las barras de conectan los nodos de la siguiente forma: \n"
-        q+=
+        for i in self.barras:
+            q+= f" {i} : i[0], i[1]"
+            
+        q+= "\n"
         
         q+= "El peso total del enrejado es de: "+ str(calcular_peso_total())+" Kg"
         
