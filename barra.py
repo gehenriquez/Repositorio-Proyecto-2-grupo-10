@@ -7,7 +7,8 @@ g = 9.81 #kg*m/s^2
 
 class Barra(object):
 
-	"""Constructor para una barra"""
+	"""Constructor para una barra.
+    los datos en orden son: nodo_i, nodo_j, radio, espesor, Modulo E, densidad, fluencia"""
 	def __init__(self, ni, nj, R, t, E, ρ, σy):
 		super(Barra, self).__init__()
 		self.ni = ni
@@ -24,7 +25,7 @@ class Barra(object):
 
 	def calcular_area(self):
 		"""Calcula el area de una barra circular"""
-		return R**2*np.pi
+		return np.pi*(self.R**2-(self.R-self.t)**2 )
 
 	def calcular_largo(self, reticulado):
 
@@ -32,4 +33,4 @@ class Barra(object):
 
 	def calcular_peso(self, reticulado):
 
-		return ρ* calcular_largo(Barra)*calcular_area
+		return self.ρ*calcular_largo(Barra)*calcular_area
