@@ -1,5 +1,3 @@
-
-
 import numpy as np
 
 g = 9.81 #kg*m/s^2
@@ -8,7 +6,7 @@ g = 9.81 #kg*m/s^2
 class Barra(object):
 
 	"""Constructor para una barra.
-    los datos en orden son: nodo_i, nodo_j, radio, espesor, Modulo E, densidad, fluencia"""
+    Los datos en orden son: nodo_i, nodo_j, radio, espesor, Modulo E, densidad, fluencia"""
 	def __init__(self, ni, nj, R, t, E, ρ, σy):
 		super(Barra, self).__init__()
 		self.ni = ni
@@ -20,8 +18,8 @@ class Barra(object):
 		self.σy = σy
 
 	def obtener_conectividad(self):
-		"""Implementar"""
-		return 
+
+		return None
 
 	def calcular_area(self):
 		"""Calcula el area de una barra circular"""
@@ -29,7 +27,7 @@ class Barra(object):
 
 	def calcular_largo(self, reticulado):
 
-		return np.sqrt((ni[0]-nj[0])**2+(ni[1]-nj[1])**2)
+		return np.sqrt((self.ni[0]-self.nj[0])**2+(self.ni[1]-self.nj[1])**2)
 
 	def calcular_peso(self, barra):
             """Entrega el peso de una barra """
