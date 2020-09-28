@@ -25,12 +25,12 @@ class Barra(object):
 
 	def calcular_area(self):
 		"""Calcula el area de una barra circular"""
-		return np.pi*(self.R**2-(self.R-self.t)**2 )
+		return np.pi*(self.R**2-(self.R-self.t)**2)
 
 	def calcular_largo(self, reticulado):
 
 		return np.sqrt((ni[0]-nj[0])**2+(ni[1]-nj[1])**2)
 
-	def calcular_peso(self, reticulado):
-
-		return self.ρ*calcular_largo(Barra)*calcular_area
+	def calcular_peso(self, barra):
+            """Entrega el peso de una barra """
+            self.ρ*calcular_largo(barra)*self.calcular_area()*g
