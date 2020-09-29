@@ -1,5 +1,4 @@
 import numpy as np
-
 g = 9.81 #kg*m/s^2
 
 
@@ -32,4 +31,4 @@ class Barra(object):
 
     def calcular_peso(self, barra):
             """Entrega el peso de una barra """
-            self.ρ*calcular_largo(barra)*self.calcular_area()*g
+            self.ρ*self.calcular_largo(barra)*self.calcular_area()*g
