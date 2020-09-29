@@ -1,5 +1,5 @@
 import numpy as np
-from barra import Barra
+
 
 class Reticulado(object):
     """Definicion de un reticulado"""
@@ -9,7 +9,7 @@ class Reticulado(object):
         super(Reticulado, self).__init__()
 
         self.xyz=np.zeros((Reticulado.__NodosInit__,3),dtype=np.double)
-        self.Nodos = 0.
+        self.Nodos = 0
         self.barras = []
         self.cargas = {}
         self.restricciones = {}
@@ -75,7 +75,7 @@ class Reticulado(object):
             
         q+= "\n"
         
-        q+= "El peso total del enrejado es de: "+ str(calcular_peso_total())+" Kg"
+        q+= "El peso total del enrejado es de: "+ str(self.calcular_peso_total())+" Kg"
         
         return q
         
