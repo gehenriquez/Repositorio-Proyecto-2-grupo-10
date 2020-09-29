@@ -17,7 +17,7 @@ class Barra(object):
         self.σy = σy
 
     def obtener_conectividad(self):
-        return [self.n_i,self.n_j]
+        return [self.ni,self.nj]
 
     def calcular_area(self):
         """Calcula el area de una barra circular"""
@@ -31,4 +31,5 @@ class Barra(object):
 
     def calcular_peso(self, barra):
             """Entrega el peso de una barra """
-            self.ρ*self.calcular_largo(barra)*self.calcular_area()*g
+
+            return self.ρ*self.calcular_largo(barra)*self.calcular_area()*g
