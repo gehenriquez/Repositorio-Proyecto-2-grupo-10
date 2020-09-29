@@ -67,7 +67,7 @@ class Reticulado(object):
         q+="Los nodos y sus ubicaciones son: \n"
         for i in range(self.Nodos):
             q += f"   {i} : ({self.xyz[i,0]}, {self.xyz[i,1]}, {self.xyz[i,2]},) \n"
-        q+= "\n"
+        q+= "\n "
         q+= "Las barras conectan los nodos de la siguiente forma: \n"
         for i,b in enumerate(self.barras):
             n= b.obtener_conectividad()
@@ -76,4 +76,5 @@ class Reticulado(object):
         q+= "\n"
         q+= "El peso total del enrejado es de: "+ str(self.calcular_peso_total())+" Kg"
         return q
+    
         
