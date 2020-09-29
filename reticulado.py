@@ -63,18 +63,17 @@ class Reticulado(object):
         return None
     
     def __str__( self ):
-        q= "informacion reticulado \n \n"
-        q+=" los nodos son: \n"
+        q= "Informacion reticulado \n \n"
+        q+="Los nodos y sus ubicaciones son: \n"
         for i in range(self.Nodos):
-            q += f" {i} : ({self.xyz[i,0]}, {self.xyz[i,1]}, {self.xyz[i,2]},) \n"
+            q += f"   {i} : ({self.xyz[i,0]}, {self.xyz[i,1]}, {self.xyz[i,2]},) \n"
         q+= "\n"
-        q+= " Las barras de conectan los nodos de la siguiente forma: \n"
+        q+= "Las barras de conectan los nodos de la siguiente forma: \n"
         for i,b in enumerate(self.barras):
             n= b.obtener_conectividad()
-            q+= f" {i}: [ {n[0]} {n[1]} ] "
+            q+= f"   {i}: [ {n[0]} <---> {n[1]} ] "
             q+= "\n"
         q+= "\n"
         q+= "El peso total del enrejado es de: "+ str(self.calcular_peso_total())+" Kg"
-        
         return q
         
