@@ -1,4 +1,5 @@
 import numpy as np
+
 g = 9.81 #kg*m/s^2
 
 
@@ -17,7 +18,7 @@ class Barra(object):
         self.σy = σy
 
     def obtener_conectividad(self):
-        return [self.ni,self.nj]
+        return [self.n_i,self.n_j]
 
     def calcular_area(self):
         """Calcula el area de una barra circular"""
@@ -27,9 +28,10 @@ class Barra(object):
         i=barra.obtener_coordenada_nodal(self.ni)
         j=barra.obtener_coordenada_nodal(self.nj)
         z=i-j
-        return np.sqrt(z[0]**2+z[1]**2)
+        return np.sqrt(np.dot(z,z))
 
     def calcular_peso(self, barra):
             """Entrega el peso de una barra """
-
-            return self.ρ*self.calcular_largo(barra)*self.calcular_area()*g
+            L = self.calcular_largo(barra)
+            A = self.calcular_area()
+            return self.ρ * A * L * g
