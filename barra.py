@@ -30,6 +30,6 @@ class Barra(object):
         return np.sqrt(z[0]**2+z[1]**2)
 
     def calcular_peso(self, barra):
-            """Entrega el peso de una barra """
+            """Entrega el peso de una barra  """
 
-            return self.ρ*self.calcular_largo(barra)*self.calcular_area()*g
+            return self.ρ*self.calcular_largo(barra)*self.calcular_area()* g
