@@ -17,9 +17,8 @@ class Reticulado(object):
     def agregar_nodo(self, x, y,z=0):
         if self.Nodos +1 > Reticulado.__NodosInit__:
             self.xyz.resize((self.Nodos+1,3))
-            self.xyz[Nodos,:]= [x,y,z]
-            self.Nodos+=1
-            return None
+        self.xyz[self.Nodos,:]= [x,y,z]
+        self.Nodos+=1
 
     
     def agregar_barra(self,barra):
@@ -27,12 +26,12 @@ class Reticulado(object):
 
     def obtener_coordenada_nodal(self, nodo): 
         if nodo >= self.Nodos:
-            return None
+            return self.xyz[nodo,:]
         else:
             return self.xyz[nodo,:]
 
     def calcular_peso_total(self):
-        W=0
+        W=0.
         for i in self.barras:
             W+= i.calcular_peso(self)
         return W
@@ -45,7 +44,7 @@ class Reticulado(object):
 
     def agregar_restriccion(self, nodo, gdl, valor=0.0):
 
-        returnNone
+        return None
 
     def agregar_fuerza(self, nodo, gdl, valor):
 
