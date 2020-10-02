@@ -1,4 +1,5 @@
 import numpy as np
+
 g = 9.81 #kg*m/s^2
 
 
@@ -20,7 +21,7 @@ class Barra(object):
         return [self.ni,self.nj]
 
     def calcular_area(self):
-        """Calcula el area de una barra circular"""
+        """Calcula el area de una barra de seccion circular"""
         return np.pi*(self.R**2-(self.R-self.t)**2)
 
     def calcular_largo(self, barra):
