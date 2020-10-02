@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.linalg import solve
 
 
 class Reticulado(object):
@@ -55,6 +56,54 @@ class Reticulado(object):
         return None
 
     def resolver_sistema(self):
+
+        # 0 : Aplicar restricciones
+        Ngdl = self.Nnodos * self.Ndimensiones
+        gdl_libres = np.arange(Ngdl)
+        gdl_restringidos = []
+
+        for nodo in self.restricciones:
+            restriccion = self.restricciones[nodo]
+            gdl = restriccion[0][0]
+            valor = restriccion[1][0]
+
+            gdl_restringidos.append(2 * nodo + gdl)
+
+            if len(restriccion) > 1:
+                gdl_restringidos.append(2 * nodo + gdl)
+
+        # Identificar gdl_restringidos y llenar u en valores conocidos.
+        gdl_libres = np.setdiff1d(gdl_libres, gdl_restringidos)
+
+        # Agregar cargas nodales a vector de cargas
+        for nodo in self.cargas:
+            for carga in self.cargas[nodo]:
+                gdl = carga[0]
+                valor = carga[1]
+                gdl_global = 2 * nodo + gdl
+
+        # 1 Particionar:
+        Kff = K[np.ix_(gdl_libres, gdl_libres)]
+        Kfc = K[np.ix_(gdl_libres, gdl_restringidos)]
+        Kcf = Kfc.T
+        Kcc = K[np.ix_(gdl_restringidos, gdl_restringidos)]
+
+        uf = u[gdl_libres]
+        uc = u[gdl_restringidos]
+
+        ff = f[gdl_libres]
+        fc = f[gdl_restringidos]
+
+        # Resolver para obtener uf -->  Kff uf = ff - Kfc*uc
+        uf = solve(Kff, ff - Kfc @ uc)
+
+        Rc = Kcf @ uf + Kcc @ uc - fc
+
+        # Asignar uf al vector solucion
+        self.u[gdl_libres] = uf
+
+        # Marcar internamente que se tiene solucion
+        self.tiene_solucion = True
 
         return None
 
