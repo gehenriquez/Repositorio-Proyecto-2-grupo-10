@@ -1,5 +1,4 @@
 import numpy as np
-
 g = 9.81 #kg*m/s^2
 
 
