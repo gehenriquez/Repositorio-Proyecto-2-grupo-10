@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.linalg import solve
 
 
 class Reticulado(object):
@@ -56,6 +57,54 @@ class Reticulado(object):
 
     def resolver_sistema(self):
 
+        # 0 : Aplicar restricciones
+        Ngdl = self.Nnodos * self.Ndimensiones
+        gdl_libres = np.arange(Ngdl)
+        gdl_restringidos = []
+
+        for nodo in self.restricciones:
+            restriccion = self.restricciones[nodo]
+            gdl = restriccion[0][0]
+            valor = restriccion[1][0]
+
+            gdl_restringidos.append(2 * nodo + gdl)
+
+            if len(restriccion) > 1:
+                gdl_restringidos.append(2 * nodo + gdl)
+
+        # Identificar gdl_restringidos y llenar u en valores conocidos.
+        gdl_libres = np.setdiff1d(gdl_libres, gdl_restringidos)
+
+        # Agregar cargas nodales a vector de cargas
+        for nodo in self.cargas:
+            for carga in self.cargas[nodo]:
+                gdl = carga[0]
+                valor = carga[1]
+                gdl_global = 2 * nodo + gdl
+
+        # 1 Particionar:
+        Kff = K[np.ix_(gdl_libres, gdl_libres)]
+        Kfc = K[np.ix_(gdl_libres, gdl_restringidos)]
+        Kcf = Kfc.T
+        Kcc = K[np.ix_(gdl_restringidos, gdl_restringidos)]
+
+        uf = u[gdl_libres]
+        uc = u[gdl_restringidos]
+
+        ff = f[gdl_libres]
+        fc = f[gdl_restringidos]
+
+        # Resolver para obtener uf -->  Kff uf = ff - Kfc*uc
+        uf = solve(Kff, ff - Kfc @ uc)
+
+        Rc = Kcf @ uf + Kcc @ uc - fc
+
+        # Asignar uf al vector solucion
+        self.u[gdl_libres] = uf
+
+        # Marcar internamente que se tiene solucion
+        self.tiene_solucion = True
+
         return None
 
     def recuperar_fuerzas(self):
@@ -63,18 +112,18 @@ class Reticulado(object):
         return None
     
     def __str__( self ):
-        q= "informacion reticulado \n \n"
-        q+=" los nodos son: \n"
+        q= "Informacion reticulado \n \n"
+        q+="Los nodos y sus ubicaciones son: \n"
         for i in range(self.Nodos):
-            q += f" {i} :( self.xyz[i,0], self.xyz[i,1],self.xyz[i,2],)"
+            q += f"   {i} : ({self.xyz[i,0]}, {self.xyz[i,1]}, {self.xyz[i,2]},) \n"
+        q+= "\n "
+        q+= "Las barras conectan los nodos de la siguiente forma: \n"
+        for i,b in enumerate(self.barras):
+            n= b.obtener_conectividad()
+            q+= f"   {i}: [ {n[0]} <---> {n[1]} ] "
+            q+= "\n"
         q+= "\n"
-        q+= " Las barras de conectan los nodos de la siguiente forma: \n"
-        for i in self.barras:
-            q+= f" {i} : i[0], i[1]"
-            
-        q+= "\n"
-        
         q+= "El peso total del enrejado es de: "+ str(self.calcular_peso_total())+" Kg"
-        
         return q
+    
         
